@@ -11,15 +11,16 @@ public class Die {
         this.sides = sides;
         this.value = getValue();
     }
+
     public ArrayList<Integer> rollDie(int rolls) {
         int currentRoll = 0;
         ArrayList<Integer> rollScores = new ArrayList<Integer>();
 
-        if (currentRoll < rolls){
+        while (currentRoll < rolls){
             value = (int) (Math.random() * 6 + 1);
             rollScores.add(value);
             currentRoll++;
-
+            //System.out.println(value);
         }
         return rollScores;
 

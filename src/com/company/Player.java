@@ -1,6 +1,10 @@
 package com.company;
 
+import java.util.ArrayList;
+
 public class Player {
+
+    public ArrayList<Die> playersDice;
 
     private String playerName;
     private int playerScore;
@@ -12,10 +16,6 @@ public class Player {
 
     public String getPlayerName() {
         return playerName;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
     }
 
     public int getPlayerScore() {

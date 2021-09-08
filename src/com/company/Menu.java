@@ -18,7 +18,6 @@ public class Menu {
 
         System.out.println("\nOkay so now lets start the game.");
         Game newGame = new Game(playerNum,roundNum,playerDice);
-        System.out.println("\nGreat All players have been set. Here are the players");
     }
 
 

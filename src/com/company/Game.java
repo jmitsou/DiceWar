@@ -16,7 +16,22 @@ public class Game {
         this.numOfDice = numOfDice;
         generatePlayers(numOfPlayers);
         displayPlayers();
+        System.out.println("\nGreat All players have been set. Here are the players");
         playRound();
+    }
+
+    private void generatePlayers(int numOfPlayers) {
+        for (int i = 0; i < numOfPlayers; i++) {
+            String name = CLI.getStr("What is your player name: ");
+            Player newPlayer = new Player(name,0);
+            newPlayer.playersDice = generateDie();
+            players.add(newPlayer);
+        }
+    }
+
+    private ArrayList<Die> generateDie() {
+        return null;
+
     }
 
     public void playRound() {
@@ -27,83 +42,73 @@ public class Game {
         }
 
         for (int i = 0; i < players.size(); i++) {
+            System.out.println("");
             playerTurn(i);
-
         }
+        leaderBoard();
         currentRound++;
         currentTurn = 0;
-
-//        choice = options();
-//
-//        if (choice == 1){
-//            playRound();
-//        }else if (choice == 2){
-//            leaderBoard();
-//        }else if (choice == 3){
-//            System.out.println();
-//        }
-
+        options();
     }
 
     public void playerTurn(int turn ) {
         String name = players.get(turn).getPlayerName();
-        System.out.println(name + " it is your turn to roll");
+        System.out.println(name + " it is your turn to roll.\nPress Enter to roll");
+        CLI.proceed();
         ArrayList<Integer> rollScores = new ArrayList<Integer>();
         Die die = new Die();
         rollScores = die.rollDie(numOfDice);
 
         StringBuilder sb = new StringBuilder();
         int score = 0;
-        sb.append(name + " you rolled ");
+        sb.append("\n" + name + " you rolled ");
         for (int i = 0; i < rollScores.size(); i++) {
-            sb.append(rollScores.indexOf(i) + " ");
-            score = score + rollScores.indexOf(i);
+            sb.append(rollScores.get(i) + " ");
+            score = score + rollScores.get(i);
         }
         System.out.println(sb.toString());
         int currentScore = players.get(turn).getPlayerScore();
         int total = currentScore + score;
+        players.get(turn).setPlayerScore(total);
 
     }
 
-    public void printScore() {
+    public void options() {
+        System.out.println("\nThe round is over, how would you like to proceed.");
+        System.out.println("(1) Next Round.\n(2) Display Leader Board");
+        System.out.print("\nChoice: ");
+        int choice = CLI.getNum(1, 2);
 
-
-    }
-
-    private void generatePlayers(int numOfPlayers) {
-        for (int i = 0; i < numOfPlayers; i++) {
-            String name = CLI.getStr("\nWhat is your player name: ");
-            Player newPlayer = new Player(name,0);
-            newPlayer.setPlayerName(name);
+        if (choice == 1){
+            playRound();
+        }else if (choice == 2){
+            leaderBoard();
         }
-    }
-
-    private ArrayList<Die> generateDie() {
-        return null;
-
+        options();
     }
 
     public static void displayPlayers(){
+        System.out.println("\nCurrent Players:");
         for (int i = 0, count = 0; i < players.size(); i++) {
             Player player = players.get(i);
-            System.out.println("Current Players:");
             System.out.println((i + 1) + ") " + player.getPlayerName());
         }
     }
 
     public static void leaderBoard(){
+        System.out.println("\nCurrent Players and scores:");
         for (int i = 0, count = 0; i < players.size(); i++) {
             Player player = players.get(i);
-            System.out.println((i + 1) + ") " + player.getPlayerName() + " " + player.getPlayerScore());
+            System.out.println((i + 1) + ") " + player.getPlayerName() + " has " + player.getPlayerScore() + " points.");
         }
     }
 
-    public static int options() {
-        System.out.println("The round is over, how would you like to proceed.");
-        System.out.println("(1) Next Round.\n(2) Display Leader Board");
-        System.out.print("\nChoice: ");
-        int choice = CLI.getNum(1, 2);
-        return choice;
+    public Player getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Player winner) {
+        this.winner = winner;
     }
 
 

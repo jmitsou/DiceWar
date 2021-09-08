@@ -27,4 +27,8 @@ public class CLI {
         return input.nextLine();
     }
 
+    public static void proceed(){
+        input.nextLine();
+    }
+
 }
