@@ -37,14 +37,15 @@ public class Game {
     public void playRound() {
 
         if (currentRound > numOfRounds){
-            //TODO enter game over
-            return;
+            System.out.println("Game has Ended.");
+            Menu.proceed();
         }
 
         for (int i = 0; i < players.size(); i++) {
-            System.out.println("");
+            System.out.println("Current Round: " + currentRound);
             playerTurn(i);
         }
+
         leaderBoard();
         currentRound++;
         currentTurn = 0;
@@ -52,6 +53,7 @@ public class Game {
     }
 
     public void playerTurn(int turn ) {
+
         String name = players.get(turn).getPlayerName();
         System.out.println(name + " it is your turn to roll.\nPress Enter to roll");
         CLI.proceed();
