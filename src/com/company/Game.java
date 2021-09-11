@@ -45,7 +45,7 @@ public class Game {
             System.out.println("Current Round: " + currentRound);
             playerTurn(i);
         }
-
+        System.out.println("\nRound is over. Here are the current scores:\n ");
         leaderBoard();
         currentRound++;
         currentTurn = 0;
@@ -55,7 +55,7 @@ public class Game {
     public void playerTurn(int turn ) {
 
         String name = players.get(turn).getPlayerName();
-        System.out.println(name + " it is your turn to roll.\nPress Enter to roll");
+        System.out.println("\n" + name + " it is your turn to roll.\nPress Enter to roll");
         CLI.proceed();
         ArrayList<Integer> rollScores = new ArrayList<Integer>();
         Die die = new Die();
