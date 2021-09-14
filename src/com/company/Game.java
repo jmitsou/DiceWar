@@ -1,15 +1,18 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Collections;
+
 
 public class Game {
 
     public static ArrayList<Player> players = new ArrayList<>();
+    public static ArrayList<Player> winners = new ArrayList<>();
+
     private int numOfRounds;
     private int numOfDice;
-    private Player winner;
     public int currentRound = 0;
-    public int currentTurn= 0;
+    public int currentTurn = 0;
 
     public Game(int numOfPlayers, int numOfRounds, int numOfDice) {
         this.numOfRounds = numOfRounds;
@@ -23,7 +26,7 @@ public class Game {
     private void generatePlayers(int numOfPlayers) {
         for (int i = 0; i < numOfPlayers; i++) {
             String name = CLI.getStr("What is your player name: ");
-            Player newPlayer = new Player(name,0);
+            Player newPlayer = new Player(name, 0);
             newPlayer.playersDice = generateDie();
             players.add(newPlayer);
         }
@@ -36,23 +39,47 @@ public class Game {
 
     public void playRound() {
 
-        if (currentRound > numOfRounds){
-            System.out.println("Game has Ended.");
-            Menu.proceed();
-        }
 
         for (int i = 0; i < players.size(); i++) {
-            System.out.println("Current Round: " + currentRound);
+            System.out.println("\nCurrent Round: " + (currentRound + 1));
             playerTurn(i);
         }
         System.out.println("\nRound is over. Here are the current scores:\n ");
         leaderBoard();
         currentRound++;
         currentTurn = 0;
+        if (currentRound >= numOfRounds) {
+            System.out.println("\nGame has Ended.\n");
+            displayWinner();
+            Menu.proceed();
+        }
         options();
     }
 
-    public void playerTurn(int turn ) {
+    public void displayWinner() {
+        int max = 0;
+        for (int i = 0; i < players.size(); i++) {
+            Player player = players.get(i);
+            if (max < player.getPlayerScore()) {
+                max = player.getPlayerScore();
+                winners.clear();
+                winners.add(player);
+            } else if (player.getPlayerScore() == max) {
+                winners.add(player);
+            }
+
+        }
+        String moreThanOne = "The winner" + ((winners.size() > 1) ? "s are": " is") + "...";
+        System.out.println(moreThanOne);
+        for (int i = 0; i < winners.size(); i++) {
+            System.out.println(winners.get(i).getPlayerName());
+        }
+        System.out.println("With a score of " + winners.get(0).getPlayerScore());
+
+
+    }
+
+    public void playerTurn(int turn) {
 
         String name = players.get(turn).getPlayerName();
         System.out.println("\n" + name + " it is your turn to roll.\nPress Enter to roll");
@@ -81,15 +108,15 @@ public class Game {
         System.out.print("\nChoice: ");
         int choice = CLI.getNum(1, 2);
 
-        if (choice == 1){
+        if (choice == 1) {
             playRound();
-        }else if (choice == 2){
+        } else if (choice == 2) {
             leaderBoard();
         }
         options();
     }
 
-    public static void displayPlayers(){
+    public static void displayPlayers() {
         System.out.println("\nCurrent Players:");
         for (int i = 0, count = 0; i < players.size(); i++) {
             Player player = players.get(i);
@@ -97,23 +124,14 @@ public class Game {
         }
     }
 
-    public static void leaderBoard(){
+    public static void leaderBoard() {
         System.out.println("\nCurrent Players and scores:");
         for (int i = 0, count = 0; i < players.size(); i++) {
             Player player = players.get(i);
-            System.out.println((i + 1) + ") " + player.getPlayerName() + " has " + player.getPlayerScore() + " points.");
+            System.out.println((i + 1) + ") " + player.getPlayerName() + " has " + player.getPlayerScore() + " points" +
+                    ".");
         }
     }
-
-    public Player getWinner() {
-        return winner;
-    }
-
-    public void setWinner(Player winner) {
-        this.winner = winner;
-    }
-
-
 
 
 }

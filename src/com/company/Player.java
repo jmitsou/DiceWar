@@ -8,6 +8,7 @@ public class Player {
 
     private String playerName;
     private int playerScore;
+    private int winner;
 
     public Player(String playerName, int playerScore) {
         this.playerName = playerName;

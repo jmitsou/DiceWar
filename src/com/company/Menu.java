@@ -1,45 +1,53 @@
 package com.company;
 
-import java.util.ArrayList;
-
 public class Menu {
 
-    public static void start(){
-        System.out.println("What would you like to do: ");
-        System.out.println("(1) Play A Game.\n(2) Exit");
+    public static void mainMenu() {
+        System.out.println("\nWhat game would you like to play:");
+
+        System.out.println("(1) DICE WARS.\n(2) Dice Throne \n(3) Exit");
         System.out.print("\nChoice: ");
-        int choice = CLI.getNum(1,2);
+        int choice = CLI.getNum(1, 3);
 
         if (choice == 1) {
-            System.out.println("\nPlease chose a number of Players and number of die each players will toss.");
-            System.out.print("\nNumber of Players: ");
-            int playerNum = CLI.getNum(2,10);
-            System.out.print("\nNumber of Dice: ");
-            int playerDice = CLI.getNum(1,10);
-
-            System.out.println("\nNext we will chose a number of Rounds.");
-            System.out.print("\nNumber of Rounds: ");
-            int roundNum = CLI.getNum(1,10);
-
-            System.out.println("\nOkay so now lets start the game.");
-            Game newGame = new Game(playerNum,roundNum,playerDice);
-        }else {
+            startDiceWar();
+        } else if (choice == 2) {
+            System.out.println("This game is Currently Under Construction");
+            mainMenu();
+        } else {
             System.out.println("Okay maybe next time, come back soon");
         }
+    }
 
+    public static void startDiceWar() {
+        System.out.println("\nWELCOME TO DICE WARS");
+        System.out.println("\nPlease chose a number of Players and number of die each players will toss.");
+        System.out.print("\nNumber of Players: ");
+        int playerNum = CLI.getNum(2, 10);
+        System.out.print("\nNumber of Dice: ");
+        int playerDice = CLI.getNum(1, 10);
+
+        System.out.println("\nNext we will chose a number of Rounds.");
+        System.out.print("\nNumber of Rounds: ");
+        int roundNum = CLI.getNum(1, 10);
+
+        System.out.println("\nOkay so now lets start the game.");
+        Game newGame = new Game(playerNum, roundNum, playerDice);
 
     }
 
-    public static void proceed(){
+    public static void proceed() {
         System.out.println("\nWhat would you like to do: ");
-        System.out.println("(1) Play Again.\n(2) Exit");
+        System.out.println("(1) Play Again. \n(2) Play another game. \n(3) Exit");
         System.out.print("\nChoice: ");
-        int choice = CLI.getNum(1,2);
+        int choice = CLI.getNum(1, 3);
 
         if (choice == 1) {
             System.out.println("Welcome Back, lets get started.");
-            start();
-        }else {
+            startDiceWar();
+        } else if (choice == 2) {
+            mainMenu();
+        } else {
             System.out.println("Good Game, come back soon");
         }
     }

@@ -17,7 +17,7 @@ public class Die {
         ArrayList<Integer> rollScores = new ArrayList<Integer>();
 
         while (currentRoll < rolls){
-            value = (int) (Math.random() * 6 + 1);
+            value = (int) (Math.random() * 1 + 1);
             rollScores.add(value);
             currentRoll++;
             //System.out.println(value);
